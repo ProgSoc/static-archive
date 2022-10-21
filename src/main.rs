@@ -2,6 +2,8 @@ use std::{
     collections::BTreeMap,
     fs::File,
     io::{Read, Seek},
+    net::IpAddr,
+    str::FromStr,
     sync::{Arc, Mutex},
     thread,
 };
@@ -183,5 +185,6 @@ async fn main() {
 
     println!("Ready to serve files!");
 
-    warp::serve(file_server).run(([127, 0, 0, 1], 3030)).await;
+    let addr = IpAddr::from_str("::0").unwrap();
+    warp::serve(file_server).run((addr, 3030)).await;
 }
