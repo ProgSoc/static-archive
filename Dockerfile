@@ -10,13 +10,13 @@ RUN rm src/*.rs
 
 COPY src ./src
 
-RUN rm ./target/release/deps/static-archive*
+RUN rm ./target/release/deps/static_archive*
 RUN cargo build --release
 
 FROM ubuntu
 
 WORKDIR /app
 
-COPY --from=build /app/target/release/static_archive .
+COPY --from=build /app/target/release/static-archive .
 
 CMD ./static-archive
