@@ -1,8 +1,9 @@
 FROM rust as build
 
+
+RUN USER=root cargo new --bin app
 WORKDIR /app
 
-RUN USER=root cargo new --bin modular-static-archive
 COPY Cargo.lock Cargo.toml ./
 RUN cargo build --release
 RUN rm src/*.rs
