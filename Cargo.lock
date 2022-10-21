@@ -510,21 +510,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "modular-static-archive"
-version = "0.1.0"
-dependencies = [
- "http",
- "hyper",
- "mime_guess",
- "serde",
- "serde_json",
- "tokio",
- "walkdir",
- "warp",
- "zip",
-]
-
-[[package]]
 name = "multipart"
 version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -891,6 +876,21 @@ checksum = "02e2d2db9033d13a1567121ddd7a095ee144db4e1ca1b1bda3419bc0da294ebd"
 dependencies = [
  "libc",
  "winapi",
+]
+
+[[package]]
+name = "static-archive"
+version = "0.1.0"
+dependencies = [
+ "http",
+ "hyper",
+ "mime_guess",
+ "serde",
+ "serde_json",
+ "tokio",
+ "walkdir",
+ "warp",
+ "zip",
 ]
 
 [[package]]
