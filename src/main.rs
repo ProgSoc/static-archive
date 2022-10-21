@@ -1,7 +1,7 @@
 use std::{
     collections::BTreeMap,
     fs::File,
-    io::{Read, Seek},
+    io::Read,
     net::IpAddr,
     str::FromStr,
     sync::{Arc, Mutex},
@@ -9,12 +9,9 @@ use std::{
 };
 
 use http::Uri;
-use hyper::{HeaderMap, StatusCode};
+use hyper::StatusCode;
 use serde::{Deserialize, Serialize};
-use warp::{
-    http::response::Builder, path::FullPath, reject::Reject, reply::Response, Error, Filter,
-    Rejection,
-};
+use warp::{http::response::Builder, path::FullPath, reject::Reject, Filter, Rejection};
 
 #[derive(Debug)]
 struct FailedToParseUrl;
