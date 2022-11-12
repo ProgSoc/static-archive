@@ -884,7 +884,6 @@ version = "0.1.0"
 dependencies = [
  "http",
  "hyper",
- "mime_guess",
  "serde",
  "serde_json",
  "tokio",
