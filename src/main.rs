@@ -2,7 +2,6 @@ use std::{net::IpAddr, str::FromStr, sync::Arc};
 
 use http::Uri;
 
-use serde::{Deserialize, Serialize};
 use warp::{http::response::Builder, path::FullPath, reject::Reject, Filter, Rejection, Reply};
 
 use crate::static_zip::StaticZipArchive;
@@ -16,15 +15,6 @@ impl Reject for FailedToParseUrl {}
 #[derive(Debug)]
 struct FailedToReadFile;
 impl Reject for FailedToReadFile {}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct ArchiveSiteEntry {
-    status: u16,
-    location: Option<String>,
-    #[serde(rename = "contentType")]
-    content_type: Option<String>,
-    filename: String,
-}
 
 #[tokio::main]
 async fn main() {
