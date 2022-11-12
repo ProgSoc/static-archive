@@ -8,8 +8,10 @@ COPY Cargo.lock Cargo.toml ./
 RUN cargo build --release
 RUN rm src/*.rs
 
-COPY src ./src
+COPY schema ./schema
 COPY html ./html
+COPY .env ./
+COPY src ./src
 
 RUN rm ./target/release/deps/static_archive*
 RUN cargo build --release

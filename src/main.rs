@@ -3,7 +3,7 @@ use std::{net::IpAddr, str::FromStr, sync::Arc};
 use http::Uri;
 
 use serde::{Deserialize, Serialize};
-use warp::{http::response::Builder, path::FullPath, reject::Reject, Filter, Rejection};
+use warp::{http::response::Builder, path::FullPath, reject::Reject, Filter, Rejection, Reply};
 
 use crate::static_zip::StaticZipArchive;
 
@@ -36,16 +36,18 @@ async fn main() {
 
     let static_zip = Arc::new(StaticZipArchive::new(content_path).await);
 
-    let file_server = all_urls_filter().map(move |url: Uri| {
-        if let Some(reply) = static_zip.get_response_from_uri(&url) {
-            reply
-        } else {
-            Box::new(
+    let file_server = all_urls_filter().then(move |url: Uri| {
+        let static_zip = static_zip.clone();
+        async move {
+            if let Some(reply) = static_zip.get_response_from_uri(&url).await {
+                reply.into_response()
+            } else {
                 Builder::new()
                     .status(404)
                     .header("Content-Type", "text/html")
-                    .body(include_bytes!("../html/404.html").to_vec()),
-            )
+                    .body(include_bytes!("../html/404.html").to_vec())
+                    .into_response()
+            }
         }
     });
 
